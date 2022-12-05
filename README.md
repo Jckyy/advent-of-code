@@ -3,4 +3,5 @@
 [Advent of Code 2022](https://adventofcode.com/2022)
 
 Let's see how far I can get this year after two semester of computer science.
-Using Python.
+
+Using Python for the solutions.
