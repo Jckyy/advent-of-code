@@ -56,9 +56,37 @@ def find_common_item(compartments):
 
 
 # Find sum of the priorities of items that appear in both compartments
-sum = 0
+sum_priorities = 0
 for rucksack in data:
     compartments = get_rucksack_compartments(rucksack)
-    sum += find_common_item(compartments)
+    sum_priorities += find_common_item(compartments)
 
-print(f'Sum of item priorities that appear in both compartments: {str(sum)}')
+print(
+    f'Sum of item priorities that appear in both compartments: {str(sum_priorities)}')
+
+
+# Part 2
+# Every 3 lines in input = 1 group of elves
+# Find the common item for that group, then sum it up.
+# My find_common_item() function still works more lists.
+
+common_items = []
+# split = 3
+# i = 1
+elf_group = []
+for game in data:
+    elf_group.append(convert_items_to_priority(game))
+    # if i % split != 0:
+    #     i += 1
+    # elif i % split == 0:
+    #     common_items.append(find_common_item(elf_group))
+    #     elf_group.clear()
+    #     i += 1
+    if len(elf_group) == 3:
+        common_items.append(find_common_item(elf_group))
+        elf_group.clear()
+
+print(sum(common_items))
+
+# I was overthinking how to split the data into elf groups using mod.
+# Using len() of a temp list is so much easier.
