@@ -6,7 +6,7 @@ import heapq
 # Split data on '\n' and sum each segment.
 
 
-def CreateCalorieList(data):
+def create_calorie_list(data):
     sumData = []
     sum = 0
     for line in data:
@@ -23,7 +23,7 @@ file = open("input.txt", 'r')
 data = file.readlines()
 file.close()
 
-sumData = CreateCalorieList(data)
+sumData = create_calorie_list(data)
 
 print("Max calories: " + str(max(sumData)))
 
@@ -32,7 +32,7 @@ print("Max calories: " + str(max(sumData)))
 # How many total calories are the top 3 elves carrying?
 
 # Return sum of a lit
-def SumList(list):
+def sum_list(list):
     sum = 0
     for i in list:
         sum += i
@@ -40,4 +40,4 @@ def SumList(list):
 
 
 topCalories = heapq.nlargest(3, sumData)
-print('Sum calories of top 3 elves: ' + str(SumList(topCalories)))
+print('Sum calories of top 3 elves: ' + str(sum_list(topCalories)))

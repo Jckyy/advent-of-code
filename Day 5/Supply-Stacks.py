@@ -3,11 +3,11 @@ data = file.readlines()
 file.close
 # print(data)
 
-starting_positions = data[:9]
-# print(starting_positions)
+STARTING_POSITIONS = data[:9]
+# print(STARTING_POSITIONS)
 
-instructions = data[10:]
-# print(instructions)
+INSTRUCTIONS = data[10:]
+# print(INSTRUCTIONS)
 
 # Re-organise the start position data with lists
 # The end of the list is the top of the stack
@@ -34,7 +34,7 @@ def create_stacks(data):
     return stacks
 
 
-stacks = create_stacks(starting_positions)
+stacks = create_stacks(STARTING_POSITIONS)
 # print(stacks)
 
 
@@ -81,7 +81,7 @@ def get_code(stacks):
     return code
 
 
-for move in instructions:
+for move in INSTRUCTIONS:
     instruction_values = get_values(move)
     execute_move(instruction_values, stacks, 'part 1')
 print(get_code(stacks))
@@ -92,9 +92,9 @@ print(get_code(stacks))
 
 # Reset stacks to initial position
 stacks.clear()
-stacks = create_stacks(starting_positions)
+stacks = create_stacks(STARTING_POSITIONS)
 
-for move in instructions:
+for move in INSTRUCTIONS:
     instruction_values = get_values(move)
     execute_move(instruction_values, stacks, 'part 2')
 
