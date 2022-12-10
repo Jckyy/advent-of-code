@@ -31,7 +31,7 @@ print("Max calories: " + str(max(sumData)))
 # Part 2
 # How many total calories are the top 3 elves carrying?
 
-# Return sum of a lit
+# Return sum of a list
 def sum_list(list):
     sum = 0
     for i in list:
