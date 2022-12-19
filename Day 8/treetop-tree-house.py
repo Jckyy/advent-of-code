@@ -1,6 +1,6 @@
 import copy
 
-file = open('input.txt', 'r')
+file = open('example_input.txt', 'r')
 data = file.readlines()
 file.close()
 
@@ -79,4 +79,47 @@ def check_rows(grid, inside_trees, set_trees):
 grid = create_grid(data)
 inside_trees = get_inside_trees(grid)
 visible_trees = find_visible_trees(grid, inside_trees)
-print(visible_trees)
+print('Part one:', visible_trees)
+
+# --- Part Two ---
+
+grid.clear()
+grid = create_grid(data)
+# print(grid)
+
+
+# def get_scenic_score(grid):
+#     scenic_scores = recreate_empty_grid(grid)
+#     for i, row in enumerate(grid):
+#         for j, tree in enumerate(row):
+#             # Calculate scenic score
+#             score = 0
+#             # Check east
+#             if j < len(row) - 1:
+#                 while True:
+#                     max = row[j+1]
+#                     scenic_scores[i][j] += 1
+
+
+#                 print(max)
+
+#             # print(i, j, tree)
+
+#     # print(scenic_scores)
+#     return
+
+
+def recreate_empty_grid(grid):
+    result = []
+    i = 0
+    while i < len(grid):
+        result.append([])
+        j = 0
+        while j < len(grid[0]):
+            result[i].append(0)
+            j += 1
+        i += 1
+    return result
+
+
+# get_scenic_score(grid)
