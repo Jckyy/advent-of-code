@@ -1,4 +1,5 @@
 import operator
+import copy
 
 ops = {
     '+': operator.add,
@@ -32,7 +33,7 @@ class Monkey:
     def get_test(self):
         return self._test
 
-    def execute_operation(self):
+    def execute_operation(self, part):
         if len(self._items) == 0:
             return
         if self._op_value == 'old':
@@ -41,8 +42,11 @@ class Monkey:
             value = int(self._op_value)
 
         self._items[0] = self._op_func(self._items[0], value)
-        # Floor division for monkey boredom
-        self._items[0] //= 3
+        if part == 'part 1':
+            # Floor division for monkey boredom
+            self._items[0] //= 3
+        if part == 'part 2':
+            self._items[0] %= supermodulo
 
     def execute_test(self):
         if len(self._items) == 0:
@@ -93,9 +97,8 @@ def create_monkeys(data):
         i += 1
     return monkeys
 
+
 # Print all current items held by monkeys
-
-
 def print_monkey_items(monkeys):
     i = 0
     for monkey in monkeys:
@@ -112,43 +115,59 @@ def calc_monkey_business(list):
     return res
 
 
+def execute_rounds(part, max_rounds):
+    round = 1
+    while round <= max_rounds:
+        # print(f'Round {round}')
+        # Each turn:
+        # Inspect and throw every item in order. Items received get added to the end
+        # For each item:
+        # 1. Execute the operation
+        # 2. Execute the test
+        # 3. Execute the test result
+
+        for i, monkey in enumerate(monkeys):
+
+            while len(monkey.get_items()) > 0:
+                # Increment inspection counter
+                inspection_counts[i] += 1
+                # Execute operation on the item
+                monkey.execute_operation(part)
+                # Execute test
+                item, target_monkey = monkey.execute_test()
+                monkeys[target_monkey].add_item(item)
+        round += 1
+
+
+# --- Part One ---
+
 # Create list of monkey objects and their behaviour
 monkeys = create_monkeys(data)
 # Create counter list to track how many items they inspect
 inspection_counts = [0] * len(monkeys)
-round = 1
 max_rounds = 20
 
-
-while round <= max_rounds:
-    # print(f'Round {round}')
-    # Each turn:
-    # Inspect and throw every item in order. Items received get added to the end
-    # For each item:
-    # 1. Execute the operation
-    # 2. Execute the test
-    # 3. Execute the test result
-
-    for i, monkey in enumerate(monkeys):
-        # # Execute operation
-        # monkey.execute_operation()
-        # # Execute test
-        # item, target_monkey = monkey.execute_test()
-        # monkeys[target_monkey].add_item(item)
-
-        while len(monkey.get_items()) > 0:
-            # Increment inspection counter
-            inspection_counts[i] += 1
-            # Execute operation on the item
-            monkey.execute_operation()
-            # Execute test
-            item, target_monkey = monkey.execute_test()
-            monkeys[target_monkey].add_item(item)
-
-    # print_monkey_items(monkeys)
-    # print(f'=========================\n')
-    round += 1
-print(round-1, inspection_counts)
+execute_rounds('part 1', max_rounds)
 
 monkey_business = calc_monkey_business(inspection_counts)
-print(monkey_business)
+print(f'Part 1 Monkey Business = {monkey_business}')
+
+
+def find_supermodulo():
+    supermod = 1
+    for monkey in monkeys:
+        supermod *= monkey.get_test()[0]
+    return supermod
+
+
+# --- Part Two ---
+monkeys = create_monkeys(data)
+supermodulo = find_supermodulo()
+# print(supermodulo)
+inspection_counts = [0] * len(monkeys)
+max_rounds = 10000
+execute_rounds('part 2', max_rounds)
+
+
+monkey_business = calc_monkey_business(inspection_counts)
+print(f'Part 2 Monkey Business = {monkey_business}')
