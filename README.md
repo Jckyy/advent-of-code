@@ -16,10 +16,12 @@ Using Python for the solutions.
 -   [x] Day 6
 -   [ ] Day 7
 -   [ ] Day 8
+    -   1/2 Complete
 -   [ ] Day 9
     -   1/2 Complete
 -   [ ] Day 10
--   [ ] Day 11
+    -   1/2 Complete
+-   [x] Day 11
 -   [ ] Day 12
 -   [ ] Day 13
     -   1/2 Complete
