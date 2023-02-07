@@ -23,5 +23,4 @@ Using Python for the solutions.
 -   [ ] Day 12
 -   [ ] Day 13
     -   1/2 Complete
--   [ ] Day 14
-    -   1/2 Complete
+-   [x] Day 14
