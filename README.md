@@ -26,3 +26,5 @@ Using Python for the solutions.
 -   [ ] Day 13
     -   1/2 Complete
 -   [x] Day 14
+
+Total Stars: 20
