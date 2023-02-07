@@ -19,16 +19,23 @@ def clean_data(data):
 def print_list(arr):
     def clear(): return os.system('cls')
     clear()
-    line = '   '
-    for num in range(len(arr[0])):
-        # line += str(num + min_w) + ' '
-        line += str(num).rjust(2, ' ') + ' '
-    print(line)
+    # line = '   '
+    # for num in range(len(arr[0])):
+    #     # line += str(num + min_w) + ' '
+    #     line += str(num).rjust(2, ' ') + ' '
+    # print(line)
 
+    # for i, value in enumerate(arr):
+    #     line = str(i).rjust(3, ' ') + ' '
+    #     for j in value:
+    #         line += j + '  '
+    #     print(line)
+
+    # Print with less padding
     for i, value in enumerate(arr):
-        line = str(i).rjust(3, ' ') + ' '
+        line = ''
         for j in value:
-            line += j + '  '
+            line += j + ' '
         print(line)
 
     # x = input()
@@ -37,7 +44,14 @@ def print_list(arr):
 # Create 2d array with data dimensions
 def create_grid(data):
     w_min, w_max, h_max = find_map_dimensions(data)
-    grid = [['.' for x in range(w_min, w_max+1)] for y in range(h_max+1)]
+    # Shift all the coordinates to the right so we have more space on the left.
+    w_min *= 2
+    # grid = [['.' for x in range(w_min, w_max+1)] for y in range(h_max+1)]
+    grid = [['.' for x in range(0, 999999)] for y in range(h_max+1)]
+
+    # Add floor for part 2
+    grid.append(['.' for x in range(len(grid[0]))])
+    grid.append(['x' for x in range(len(grid[0]))])
     return grid, w_min
 
 
@@ -152,7 +166,7 @@ class Sand:
                 self._is_set = True
                 # print_list(grid)
 
-        # Restore origin
+        # Restore origin if current sand is not there
         grid[0][500 % self.w_min] = '+'
         return
 
@@ -180,43 +194,55 @@ def main():
     cleaned_data = clean_data(data)
     grid, w_min = create_grid(cleaned_data)
     grid = add_rocks(cleaned_data, grid, w_min)
-    print('broke')
     sand_origin = [0, 500 % w_min]
+    x_origin = sand_origin[1]
+    y_origin = sand_origin[0]
     grid[sand_origin[0]][sand_origin[1]] = '+'
-    print_list(grid)
+    # print_list(grid)
 
     sand_collection = []
-
-    # Create new sand
 
     i = 0
     # Keep dropping sand until break
     while True:
+        part_one = True
         try:
             sand_collection.append(Sand(w_min))
-            if "o" in grid[-1]:
-                print("Overflow")
+            # # Part 1 finish criteria
+            # if "o" in grid[-3]:
+            #     print("Overflow")
+            #     break
+
+            # Part 2 finish criteria
+            # If last 2nd las sand is set
+            part_one = False
+            if len(sand_collection) > 2 and sand_collection[-2].get_is_set():
                 break
+
             for sand in sand_collection:
                 if sand.get_is_set():
                     continue
                 # If not set, move
                 sand.move(grid)
-                # print("not set")
                 # print_list(grid)
             i += 1
         except IndexError:
             break
 
-    print('finish')
     # At this point, I need to change all the non-set sand to `~`
-    grid = mark_all_unset(grid, sand_collection)
-    print_list(grid)
+    # grid = mark_all_unset(grid, sand_collection)
+    # print_list(grid)
 
-    o_count = 0
-    for line in grid:
-        o_count += line.count('o')
-    print(o_count)
+    if part_one:
+        o_count = 0
+        for line in grid:
+            o_count += line.count('o')
+        # Part 1 Answer
+        print('Part 1 answer: ' + str(o_count))
+    else:
+        # Part 2 Answer
+        count = len(sand_collection) - 1
+        print('Part 2 answer: ' + str(count))
     # Part 1 has a bug where if the sand overflows to the left,
     # the count is 1 more than it is meant to be
 
