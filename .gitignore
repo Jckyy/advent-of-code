@@ -1,3 +1,4 @@
 .vscode
 input
 input.txt
+__pycache__
