@@ -1,6 +1,6 @@
 # Import data
-# with open('input.txt', 'r') as f:
-with open('sample-input.txt', 'r') as f:
+with open('2023/day-04/input.txt', 'r') as f:
+# with open('2023/day-04/sample-input.txt', 'r') as f:
     data = f.read().splitlines()
 
 def print_array(arr):
@@ -16,10 +16,9 @@ class Card:
         self.card_no = card_no
         self.numbers = [int(num) for num in numbers]
         self.winning_numbers = [int(num) for num in winning_numbers]
-        self.copies = 0
+        self.copies = 1
         self.len_matched_numbers = 0
         self.calculate_points()
-    # def calculate points
     def calculate_points(self):
         self.points = 0
         # Find matching win numbers
@@ -53,9 +52,6 @@ class Card:
         if self.copies > 0 and self.len_matched_numbers > 0:
             self.copies = self.copies * self.len_matched_numbers + 1
         
-
-    
-
 cards_arr = []
 
 def create_cards(data_arr):
@@ -88,19 +84,15 @@ part_1_answer = sum_points(cards_arr)
 print(f'Part 1 answer: {part_1_answer}')
 
 # ---------------------------------- Part 2 ---------------------------------- #
-
-# I need to store the length of matching numbers
-# I need to store the amount of card copies 
-
+sum_cards = 0
 # Loop through cards_arr
 for i, card in enumerate(cards_arr):
-    # print(card, i)
-    # if card.len_matched_numbers > 0:
     for j in range(card.len_matched_numbers):
         try:
-            cards_arr[i+j+1].copies += 1
+            cards_arr[i+j+1].copies += card.copies
         except IndexError:
-            break
-    card.sum_copies()
+            pass
+    sum_cards += card.copies
 
-print_array(cards_arr)
+# print_array(cards_arr)
+print(f'Part 2 answer: {sum_cards}')
