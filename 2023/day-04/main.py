@@ -10,6 +10,8 @@ def print_array(arr):
 # print_array(data)
 
 # ---------------------------------- Part 1 ---------------------------------- #
+
+
 # Class Card
 class Card:
     def __init__(self, card_no, numbers, winning_numbers):
@@ -32,7 +34,7 @@ class Card:
 
     def __str__(self):
         return f'Card {self.card_no}: {self.numbers} | {self.winning_numbers} | len_matched {self.len_matched_numbers} | Copies: {self.copies}'
-    
+
     def print_winning_numbers(self):
         try:
             if self.matched_numbers != []:
@@ -41,18 +43,20 @@ class Card:
                 print(f'Card {self.card_no} has no winning numbers.')
         except AttributeError:
             print("No winning numbers yet, please calculate points first.")
-    
-    def print_points(self): 
+
+    def print_points(self):
         try:
             print(f'Card {self.card_no} has {self.points} points.')
         except AttributeError:
             print("No points yet, please calculate points first.")
-    
+
     def sum_copies(self):
         if self.copies > 0 and self.len_matched_numbers > 0:
             self.copies = self.copies * self.len_matched_numbers + 1
-        
+
+
 cards_arr = []
+
 
 def create_cards(data_arr):
     # loop each row (card)
@@ -71,14 +75,17 @@ def create_cards(data_arr):
         cards_arr.append(Card(card_no_arr[-1], numbers_arr, winning_numbers_arr))
     return cards_arr
 
+
 create_cards(data)
-    
+
+
 def sum_points(cards_arr):
     # loop through cards and add the points value
     total_points = 0
     for card in cards_arr:
         total_points += card.points
     return total_points
+
 
 part_1_answer = sum_points(cards_arr)
 print(f'Part 1 answer: {part_1_answer}')
