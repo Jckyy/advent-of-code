@@ -7,8 +7,7 @@ def read_data(file_path):
 # data = read_data("sample-input.txt")
 data = read_data("input.txt")
 
-# print(data)
-
+### Part 1 ###
 left_arr = []
 right_arr = []
 
@@ -17,11 +16,8 @@ for line in data:
     left_arr.append(int(left))
     right_arr.append(int(right))
 
-
 left_arr.sort()
 right_arr.sort()
-
-# print(left_arr, right_arr)
 
 part_1_answer = 0
 
@@ -32,3 +28,23 @@ for i, _ in enumerate(left_arr):
 
 print(f"Part 1 answer = {part_1_answer}")
 # Submission 1: 1341714 Correct
+
+
+### Part 2 ###
+occurrences = {}
+part_2_answer = 0
+
+for left in left_arr:
+    if left not in occurrences:
+        occurrences[left] = 0
+
+        for right in right_arr:
+            if left == right:
+                occurrences[left] += 1
+
+    similarity_score = left * occurrences[left]
+    # print(f"similarity_score for {left} = {similarity_score}")
+    part_2_answer += similarity_score
+
+print(f"part_2_answer = {part_2_answer}")
+# Submission 1: 27384707 Correct
